@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xindaojia.backend.dao.UserInfoRecordDao">
+
+    <resultMap type="com.xindaojia.backend.entity.UserInfoRecord" id="UserInfoRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="phoneVerify" column="phone_verify" jdbcType="INTEGER"/>
+        <result property="phoneNum" column="phone_num" jdbcType="VARCHAR"/>
+        <result property="address0" column="address_0" jdbcType="VARCHAR"/>
+        <result property="address1" column="address_1" jdbcType="VARCHAR"/>
+        <result property="address2" column="address_2" jdbcType="VARCHAR"/>
+        <result property="address3" column="address_3" jdbcType="VARCHAR"/>
+        <result property="address4" column="address_4" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="cardNum" column="card_num" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nick" column="nick" jdbcType="VARCHAR"/>
+        <result property="memberType" column="member_type" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="photoUrl" column="photo_url" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="user_status" jdbcType="INTEGER"/>
+        <result property="userPassword" column="user_password" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+        <result property="extInt1" column="ext_int1" jdbcType="INTEGER"/>
+        <result property="extInt2" column="ext_int2" jdbcType="INTEGER"/>
+        <result property="extInt3" column="ext_int3" jdbcType="INTEGER"/>
+        <result property="date1" column="date1" jdbcType="TIMESTAMP"/>
+        <result property="date2" column="date2" jdbcType="TIMESTAMP"/>
+        <result property="date3" column="date3" jdbcType="TIMESTAMP"/>
+        <result property="char1" column="char1" jdbcType="VARCHAR"/>
+        <result property="char2" column="char2" jdbcType="VARCHAR"/>
+        <result property="char3" column="char3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserInfoRecordMap">
+        select
+          id, user_id, phone_verify, phone_num, address_0, address_1, address_2, address_3, address_4, sex, age, card_num, user_name, nick, member_type, create_time, photo_url, user_status, user_password, version, ext_info, ext_int1, ext_int2, ext_int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.user_info_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserInfoRecordMap">
+        select
+          id, user_id, phone_verify, phone_num, address_0, address_1, address_2, address_3, address_4, sex, age, card_num, user_name, nick, member_type, create_time, photo_url, user_status, user_password, version, ext_info, ext_int1, ext_int2, ext_int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.user_info_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserInfoRecordMap">
+        select
+        id, user_id, phone_verify, phone_num, address_0, address_1, address_2, address_3, address_4,
+        sex, age, card_num, user_name, nick, member_type, create_time, photo_url, user_status,
+        user_password, version, ext_info, ext_int1, ext_int2, ext_int3, date1, date2, date3, char1,
+        char2, char3
+        from xindaojia.user_info_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="phoneVerify != null">
+                and phone_verify = #{phoneVerify}
+            </if>
+            <if test="phoneNum != null and phoneNum != ''">
+                and phone_num = #{phoneNum}
+            </if>
+            <if test="address0 != null and address0 != ''">
+                and address_0 = #{address0}
+            </if>
+            <if test="address1 != null and address1 != ''">
+                and address_1 = #{address1}
+            </if>
+            <if test="address2 != null and address2 != ''">
+                and address_2 = #{address2}
+            </if>
+            <if test="address3 != null and address3 != ''">
+                and address_3 = #{address3}
+            </if>
+            <if test="address4 != null and address4 != ''">
+                and address_4 = #{address4}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="cardNum != null and cardNum != ''">
+                and card_num = #{cardNum}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="nick != null and nick != ''">
+                and nick = #{nick}
+            </if>
+            <if test="memberType != null">
+                and member_type = #{memberType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="photoUrl != null and photoUrl != ''">
+                and photo_url = #{photoUrl}
+            </if>
+            <if test="userStatus != null">
+                and user_status = #{userStatus}
+            </if>
+            <if test="userPassword != null and userPassword != ''">
+                and user_password = #{userPassword}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                and ext_info = #{extInfo}
+            </if>
+            <if test="extInt1 != null">
+                and ext_int1 = #{extInt1}
+            </if>
+            <if test="extInt2 != null">
+                and ext_int2 = #{extInt2}
+            </if>
+            <if test="extInt3 != null">
+                and ext_int3 = #{extInt3}
+            </if>
+            <if test="date1 != null">
+                and date1 = #{date1}
+            </if>
+            <if test="date2 != null">
+                and date2 = #{date2}
+            </if>
+            <if test="date3 != null">
+                and date3 = #{date3}
+            </if>
+            <if test="char1 != null and char1 != ''">
+                and char1 = #{char1}
+            </if>
+            <if test="char2 != null and char2 != ''">
+                and char2 = #{char2}
+            </if>
+            <if test="char3 != null and char3 != ''">
+                and char3 = #{char3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xindaojia.user_info_record(user_id, phone_verify, phone_num, address_0, address_1, address_2, address_3, address_4, sex, age, card_num, user_name, nick, member_type, create_time, photo_url, user_status, user_password, version, ext_info, ext_int1, ext_int2, ext_int3, date1, date2, date3, char1, char2, char3)
+        values (#{userId}, #{phoneVerify}, #{phoneNum}, #{address0}, #{address1}, #{address2}, #{address3}, #{address4}, #{sex}, #{age}, #{cardNum}, #{userName}, #{nick}, #{memberType}, #{createTime}, #{photoUrl}, #{userStatus}, #{userPassword}, #{version}, #{extInfo}, #{extInt1}, #{extInt2}, #{extInt3}, #{date1}, #{date2}, #{date3}, #{char1}, #{char2}, #{char3})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xindaojia.user_info_record
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="phoneVerify != null">
+                phone_verify = #{phoneVerify},
+            </if>
+            <if test="phoneNum != null and phoneNum != ''">
+                phone_num = #{phoneNum},
+            </if>
+            <if test="address0 != null and address0 != ''">
+                address_0 = #{address0},
+            </if>
+            <if test="address1 != null and address1 != ''">
+                address_1 = #{address1},
+            </if>
+            <if test="address2 != null and address2 != ''">
+                address_2 = #{address2},
+            </if>
+            <if test="address3 != null and address3 != ''">
+                address_3 = #{address3},
+            </if>
+            <if test="address4 != null and address4 != ''">
+                address_4 = #{address4},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="cardNum != null and cardNum != ''">
+                card_num = #{cardNum},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="nick != null and nick != ''">
+                nick = #{nick},
+            </if>
+            <if test="memberType != null">
+                member_type = #{memberType},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="photoUrl != null and photoUrl != ''">
+                photo_url = #{photoUrl},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus},
+            </if>
+            <if test="userPassword != null and userPassword != ''">
+                user_password = #{userPassword},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                ext_info = #{extInfo},
+            </if>
+            <if test="extInt1 != null">
+                ext_int1 = #{extInt1},
+            </if>
+            <if test="extInt2 != null">
+                ext_int2 = #{extInt2},
+            </if>
+            <if test="extInt3 != null">
+                ext_int3 = #{extInt3},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3},
+            </if>
+            <if test="char1 != null and char1 != ''">
+                char1 = #{char1},
+            </if>
+            <if test="char2 != null and char2 != ''">
+                char2 = #{char2},
+            </if>
+            <if test="char3 != null and char3 != ''">
+                char3 = #{char3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xindaojia.user_info_record where id = #{id}
+    </delete>
+
+</mapper>

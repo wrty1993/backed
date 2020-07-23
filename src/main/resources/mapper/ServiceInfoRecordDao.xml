@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xindaojia.backend.dao.ServiceInfoRecordDao">
+
+    <resultMap type="com.xindaojia.backend.entity.ServiceInfoRecord" id="ServiceInfoRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="serviceId" column="service_id" jdbcType="INTEGER"/>
+        <result property="serviceName" column="service_name" jdbcType="VARCHAR"/>
+        <result property="serviceType" column="service_type" jdbcType="OTHER"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+        <result property="serviceUnit" column="service_unit" jdbcType="VARCHAR"/>
+        <result property="serviceDesc" column="service_desc" jdbcType="VARCHAR"/>
+        <result property="priceVip" column="price_vip" jdbcType="VARCHAR"/>
+        <result property="promise" column="promise" jdbcType="VARCHAR"/>
+        <result property="serviceTime" column="service_time" jdbcType="TIMESTAMP"/>
+        <result property="evaluationType" column="evaluation_type" jdbcType="OTHER"/>
+        <result property="evaluationDesc" column="evaluation_desc" jdbcType="VARCHAR"/>
+        <result property="evaluationUser" column="evaluation_user" jdbcType="VARCHAR"/>
+        <result property="evaluationTine" column="evaluation_tine" jdbcType="TIMESTAMP"/>
+        <result property="evaluationImgurl1" column="evaluation_imgUrl_1" jdbcType="VARCHAR"/>
+        <result property="evaluationImgurl2" column="evaluation_imgUrl_2" jdbcType="VARCHAR"/>
+        <result property="evaluationImgurl3" column="evaluation_imgUrl_3" jdbcType="VARCHAR"/>
+        <result property="evaluationImgurl4" column="evaluation_imgUrl_4" jdbcType="VARCHAR"/>
+        <result property="evaluationImgurl5" column="evaluation_imgUrl_5" jdbcType="VARCHAR"/>
+        <result property="evaluationImgurl6" column="evaluation_imgUrl_6" jdbcType="VARCHAR"/>
+        <result property="serviceLink" column="service_link" jdbcType="VARCHAR"/>
+        <result property="servicePhone" column="service_phone" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+        <result property="int1" column="int1" jdbcType="INTEGER"/>
+        <result property="int2" column="int2" jdbcType="INTEGER"/>
+        <result property="int3" column="int3" jdbcType="INTEGER"/>
+        <result property="date1" column="date1" jdbcType="TIMESTAMP"/>
+        <result property="date2" column="date2" jdbcType="TIMESTAMP"/>
+        <result property="date3" column="date3" jdbcType="TIMESTAMP"/>
+        <result property="char1" column="char1" jdbcType="VARCHAR"/>
+        <result property="char2" column="char2" jdbcType="VARCHAR"/>
+        <result property="char3" column="char3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ServiceInfoRecordMap">
+        select
+          id, service_id, service_name, service_type, price, service_unit, service_desc, price_vip, promise, service_time, evaluation_type, evaluation_desc, evaluation_user, evaluation_tine, evaluation_imgUrl_1, evaluation_imgUrl_2, evaluation_imgUrl_3, evaluation_imgUrl_4, evaluation_imgUrl_5, evaluation_imgUrl_6, service_link, service_phone, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.service_info_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ServiceInfoRecordMap">
+        select
+          id, service_id, service_name, service_type, price, service_unit, service_desc, price_vip, promise, service_time, evaluation_type, evaluation_desc, evaluation_user, evaluation_tine, evaluation_imgUrl_1, evaluation_imgUrl_2, evaluation_imgUrl_3, evaluation_imgUrl_4, evaluation_imgUrl_5, evaluation_imgUrl_6, service_link, service_phone, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.service_info_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ServiceInfoRecordMap">
+        select
+        id, service_id, service_name, service_type, price, service_unit, service_desc, price_vip,
+        promise, service_time, evaluation_type, evaluation_desc, evaluation_user, evaluation_tine,
+        evaluation_imgUrl_1, evaluation_imgUrl_2, evaluation_imgUrl_3, evaluation_imgUrl_4,
+        evaluation_imgUrl_5, evaluation_imgUrl_6, service_link, service_phone, version, ext_info,
+        int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.service_info_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="serviceId != null">
+                and service_id = #{serviceId}
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                and service_name = #{serviceName}
+            </if>
+            <if test="serviceType != null">
+                and service_type = #{serviceType}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="serviceUnit != null and serviceUnit != ''">
+                and service_unit = #{serviceUnit}
+            </if>
+            <if test="serviceDesc != null and serviceDesc != ''">
+                and service_desc = #{serviceDesc}
+            </if>
+            <if test="priceVip != null and priceVip != ''">
+                and price_vip = #{priceVip}
+            </if>
+            <if test="promise != null and promise != ''">
+                and promise = #{promise}
+            </if>
+            <if test="serviceTime != null">
+                and service_time = #{serviceTime}
+            </if>
+            <if test="evaluationType != null">
+                and evaluation_type = #{evaluationType}
+            </if>
+            <if test="evaluationDesc != null and evaluationDesc != ''">
+                and evaluation_desc = #{evaluationDesc}
+            </if>
+            <if test="evaluationUser != null and evaluationUser != ''">
+                and evaluation_user = #{evaluationUser}
+            </if>
+            <if test="evaluationTine != null">
+                and evaluation_tine = #{evaluationTine}
+            </if>
+            <if test="evaluationImgurl1 != null and evaluationImgurl1 != ''">
+                and evaluation_imgUrl_1 = #{evaluationImgurl1}
+            </if>
+            <if test="evaluationImgurl2 != null and evaluationImgurl2 != ''">
+                and evaluation_imgUrl_2 = #{evaluationImgurl2}
+            </if>
+            <if test="evaluationImgurl3 != null and evaluationImgurl3 != ''">
+                and evaluation_imgUrl_3 = #{evaluationImgurl3}
+            </if>
+            <if test="evaluationImgurl4 != null and evaluationImgurl4 != ''">
+                and evaluation_imgUrl_4 = #{evaluationImgurl4}
+            </if>
+            <if test="evaluationImgurl5 != null and evaluationImgurl5 != ''">
+                and evaluation_imgUrl_5 = #{evaluationImgurl5}
+            </if>
+            <if test="evaluationImgurl6 != null and evaluationImgurl6 != ''">
+                and evaluation_imgUrl_6 = #{evaluationImgurl6}
+            </if>
+            <if test="serviceLink != null and serviceLink != ''">
+                and service_link = #{serviceLink}
+            </if>
+            <if test="servicePhone != null and servicePhone != ''">
+                and service_phone = #{servicePhone}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                and ext_info = #{extInfo}
+            </if>
+            <if test="int1 != null">
+                and int1 = #{int1}
+            </if>
+            <if test="int2 != null">
+                and int2 = #{int2}
+            </if>
+            <if test="int3 != null">
+                and int3 = #{int3}
+            </if>
+            <if test="date1 != null">
+                and date1 = #{date1}
+            </if>
+            <if test="date2 != null">
+                and date2 = #{date2}
+            </if>
+            <if test="date3 != null">
+                and date3 = #{date3}
+            </if>
+            <if test="char1 != null and char1 != ''">
+                and char1 = #{char1}
+            </if>
+            <if test="char2 != null and char2 != ''">
+                and char2 = #{char2}
+            </if>
+            <if test="char3 != null and char3 != ''">
+                and char3 = #{char3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xindaojia.service_info_record(service_id, service_name, service_type, price, service_unit, service_desc, price_vip, promise, service_time, evaluation_type, evaluation_desc, evaluation_user, evaluation_tine, evaluation_imgUrl_1, evaluation_imgUrl_2, evaluation_imgUrl_3, evaluation_imgUrl_4, evaluation_imgUrl_5, evaluation_imgUrl_6, service_link, service_phone, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3)
+        values (#{serviceId}, #{serviceName}, #{serviceType}, #{price}, #{serviceUnit}, #{serviceDesc}, #{priceVip}, #{promise}, #{serviceTime}, #{evaluationType}, #{evaluationDesc}, #{evaluationUser}, #{evaluationTine}, #{evaluationImgurl1}, #{evaluationImgurl2}, #{evaluationImgurl3}, #{evaluationImgurl4}, #{evaluationImgurl5}, #{evaluationImgurl6}, #{serviceLink}, #{servicePhone}, #{version}, #{extInfo}, #{int1}, #{int2}, #{int3}, #{date1}, #{date2}, #{date3}, #{char1}, #{char2}, #{char3})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xindaojia.service_info_record
+        <set>
+            <if test="serviceId != null">
+                service_id = #{serviceId},
+            </if>
+            <if test="serviceName != null and serviceName != ''">
+                service_name = #{serviceName},
+            </if>
+            <if test="serviceType != null">
+                service_type = #{serviceType},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="serviceUnit != null and serviceUnit != ''">
+                service_unit = #{serviceUnit},
+            </if>
+            <if test="serviceDesc != null and serviceDesc != ''">
+                service_desc = #{serviceDesc},
+            </if>
+            <if test="priceVip != null and priceVip != ''">
+                price_vip = #{priceVip},
+            </if>
+            <if test="promise != null and promise != ''">
+                promise = #{promise},
+            </if>
+            <if test="serviceTime != null">
+                service_time = #{serviceTime},
+            </if>
+            <if test="evaluationType != null">
+                evaluation_type = #{evaluationType},
+            </if>
+            <if test="evaluationDesc != null and evaluationDesc != ''">
+                evaluation_desc = #{evaluationDesc},
+            </if>
+            <if test="evaluationUser != null and evaluationUser != ''">
+                evaluation_user = #{evaluationUser},
+            </if>
+            <if test="evaluationTine != null">
+                evaluation_tine = #{evaluationTine},
+            </if>
+            <if test="evaluationImgurl1 != null and evaluationImgurl1 != ''">
+                evaluation_imgUrl_1 = #{evaluationImgurl1},
+            </if>
+            <if test="evaluationImgurl2 != null and evaluationImgurl2 != ''">
+                evaluation_imgUrl_2 = #{evaluationImgurl2},
+            </if>
+            <if test="evaluationImgurl3 != null and evaluationImgurl3 != ''">
+                evaluation_imgUrl_3 = #{evaluationImgurl3},
+            </if>
+            <if test="evaluationImgurl4 != null and evaluationImgurl4 != ''">
+                evaluation_imgUrl_4 = #{evaluationImgurl4},
+            </if>
+            <if test="evaluationImgurl5 != null and evaluationImgurl5 != ''">
+                evaluation_imgUrl_5 = #{evaluationImgurl5},
+            </if>
+            <if test="evaluationImgurl6 != null and evaluationImgurl6 != ''">
+                evaluation_imgUrl_6 = #{evaluationImgurl6},
+            </if>
+            <if test="serviceLink != null and serviceLink != ''">
+                service_link = #{serviceLink},
+            </if>
+            <if test="servicePhone != null and servicePhone != ''">
+                service_phone = #{servicePhone},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                ext_info = #{extInfo},
+            </if>
+            <if test="int1 != null">
+                int1 = #{int1},
+            </if>
+            <if test="int2 != null">
+                int2 = #{int2},
+            </if>
+            <if test="int3 != null">
+                int3 = #{int3},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3},
+            </if>
+            <if test="char1 != null and char1 != ''">
+                char1 = #{char1},
+            </if>
+            <if test="char2 != null and char2 != ''">
+                char2 = #{char2},
+            </if>
+            <if test="char3 != null and char3 != ''">
+                char3 = #{char3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xindaojia.service_info_record where id = #{id}
+    </delete>
+
+</mapper>

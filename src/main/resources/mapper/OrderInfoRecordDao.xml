@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xindaojia.backend.dao.OrderInfoRecordDao">
+
+    <resultMap type="com.xindaojia.backend.entity.OrderInfoRecord" id="OrderInfoRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="INTEGER"/>
+        <result property="orderNb" column="order_nb" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+        <result property="shippingUser" column="shipping_user" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="paymentMethod" column="payment_method" jdbcType="OTHER"/>
+        <result property="orderMoney" column="order_money" jdbcType="NUMERIC"/>
+        <result property="districtMoney" column="district_money" jdbcType="NUMERIC"/>
+        <result property="paymentMoney" column="payment_money" jdbcType="NUMERIC"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="orderStatus" column="order_status" jdbcType="OTHER"/>
+        <result property="orderPoint" column="order_point" jdbcType="INTEGER"/>
+        <result property="invoiceTime" column="invoice_time" jdbcType="TIMESTAMP"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+        <result property="int1" column="int1" jdbcType="INTEGER"/>
+        <result property="int2" column="int2" jdbcType="INTEGER"/>
+        <result property="int3" column="int3" jdbcType="INTEGER"/>
+        <result property="date1" column="date1" jdbcType="TIMESTAMP"/>
+        <result property="date2" column="date2" jdbcType="TIMESTAMP"/>
+        <result property="date3" column="date3" jdbcType="TIMESTAMP"/>
+        <result property="char1" column="char1" jdbcType="VARCHAR"/>
+        <result property="char2" column="char2" jdbcType="VARCHAR"/>
+        <result property="char3" column="char3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderInfoRecordMap">
+        select
+          id, order_id, order_nb, customer_id, shipping_user, address, payment_method, order_money, district_money, payment_money, create_time, modified_time, pay_time, order_status, order_point, invoice_time, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.order_info_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderInfoRecordMap">
+        select
+          id, order_id, order_nb, customer_id, shipping_user, address, payment_method, order_money, district_money, payment_money, create_time, modified_time, pay_time, order_status, order_point, invoice_time, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.order_info_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderInfoRecordMap">
+        select
+        id, order_id, order_nb, customer_id, shipping_user, address, payment_method, order_money,
+        district_money, payment_money, create_time, modified_time, pay_time, order_status,
+        order_point, invoice_time, version, ext_info, int1, int2, int3, date1, date2, date3, char1,
+        char2, char3
+        from xindaojia.order_info_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderNb != null and orderNb != ''">
+                and order_nb = #{orderNb}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                and customer_id = #{customerId}
+            </if>
+            <if test="shippingUser != null and shippingUser != ''">
+                and shipping_user = #{shippingUser}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="paymentMethod != null">
+                and payment_method = #{paymentMethod}
+            </if>
+            <if test="orderMoney != null">
+                and order_money = #{orderMoney}
+            </if>
+            <if test="districtMoney != null">
+                and district_money = #{districtMoney}
+            </if>
+            <if test="paymentMoney != null">
+                and payment_money = #{paymentMoney}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="modifiedTime != null">
+                and modified_time = #{modifiedTime}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="orderPoint != null">
+                and order_point = #{orderPoint}
+            </if>
+            <if test="invoiceTime != null">
+                and invoice_time = #{invoiceTime}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                and ext_info = #{extInfo}
+            </if>
+            <if test="int1 != null">
+                and int1 = #{int1}
+            </if>
+            <if test="int2 != null">
+                and int2 = #{int2}
+            </if>
+            <if test="int3 != null">
+                and int3 = #{int3}
+            </if>
+            <if test="date1 != null">
+                and date1 = #{date1}
+            </if>
+            <if test="date2 != null">
+                and date2 = #{date2}
+            </if>
+            <if test="date3 != null">
+                and date3 = #{date3}
+            </if>
+            <if test="char1 != null and char1 != ''">
+                and char1 = #{char1}
+            </if>
+            <if test="char2 != null and char2 != ''">
+                and char2 = #{char2}
+            </if>
+            <if test="char3 != null and char3 != ''">
+                and char3 = #{char3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xindaojia.order_info_record(order_id, order_nb, customer_id, shipping_user, address, payment_method, order_money, district_money, payment_money, create_time, modified_time, pay_time, order_status, order_point, invoice_time, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3)
+        values (#{orderId}, #{orderNb}, #{customerId}, #{shippingUser}, #{address}, #{paymentMethod}, #{orderMoney}, #{districtMoney}, #{paymentMoney}, #{createTime}, #{modifiedTime}, #{payTime}, #{orderStatus}, #{orderPoint}, #{invoiceTime}, #{version}, #{extInfo}, #{int1}, #{int2}, #{int3}, #{date1}, #{date2}, #{date3}, #{char1}, #{char2}, #{char3})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xindaojia.order_info_record
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="orderNb != null and orderNb != ''">
+                order_nb = #{orderNb},
+            </if>
+            <if test="customerId != null and customerId != ''">
+                customer_id = #{customerId},
+            </if>
+            <if test="shippingUser != null and shippingUser != ''">
+                shipping_user = #{shippingUser},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="paymentMethod != null">
+                payment_method = #{paymentMethod},
+            </if>
+            <if test="orderMoney != null">
+                order_money = #{orderMoney},
+            </if>
+            <if test="districtMoney != null">
+                district_money = #{districtMoney},
+            </if>
+            <if test="paymentMoney != null">
+                payment_money = #{paymentMoney},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="orderPoint != null">
+                order_point = #{orderPoint},
+            </if>
+            <if test="invoiceTime != null">
+                invoice_time = #{invoiceTime},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                ext_info = #{extInfo},
+            </if>
+            <if test="int1 != null">
+                int1 = #{int1},
+            </if>
+            <if test="int2 != null">
+                int2 = #{int2},
+            </if>
+            <if test="int3 != null">
+                int3 = #{int3},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3},
+            </if>
+            <if test="char1 != null and char1 != ''">
+                char1 = #{char1},
+            </if>
+            <if test="char2 != null and char2 != ''">
+                char2 = #{char2},
+            </if>
+            <if test="char3 != null and char3 != ''">
+                char3 = #{char3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xindaojia.order_info_record where id = #{id}
+    </delete>
+
+</mapper>

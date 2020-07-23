@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xindaojia.backend.dao.StoreInfoRecordDao">
+
+    <resultMap type="com.xindaojia.backend.entity.StoreInfoRecord" id="StoreInfoRecordMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="storeId" column="store_id" jdbcType="INTEGER"/>
+        <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+        <result property="storeType" column="store_type" jdbcType="OTHER"/>
+        <result property="storePrice" column="store_price" jdbcType="NUMERIC"/>
+        <result property="storeUnit" column="store_unit" jdbcType="VARCHAR"/>
+        <result property="storeDesc" column="store_desc" jdbcType="VARCHAR"/>
+        <result property="storeDiscount" column="store_discount" jdbcType="VARCHAR"/>
+        <result property="storeActivity" column="store_activity" jdbcType="VARCHAR"/>
+        <result property="storeProject" column="store_project" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+        <result property="int1" column="int1" jdbcType="INTEGER"/>
+        <result property="int2" column="int2" jdbcType="INTEGER"/>
+        <result property="int3" column="int3" jdbcType="INTEGER"/>
+        <result property="date1" column="date1" jdbcType="TIMESTAMP"/>
+        <result property="date2" column="date2" jdbcType="TIMESTAMP"/>
+        <result property="date3" column="date3" jdbcType="TIMESTAMP"/>
+        <result property="char1" column="char1" jdbcType="VARCHAR"/>
+        <result property="char2" column="char2" jdbcType="VARCHAR"/>
+        <result property="char3" column="char3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="StoreInfoRecordMap">
+        select
+          id, store_id, store_name, store_type, store_price, store_unit, store_desc, store_discount, store_activity, store_project, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.store_info_record
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="StoreInfoRecordMap">
+        select
+          id, store_id, store_name, store_type, store_price, store_unit, store_desc, store_discount, store_activity, store_project, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.store_info_record
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="StoreInfoRecordMap">
+        select
+        id, store_id, store_name, store_type, store_price, store_unit, store_desc, store_discount,
+        store_activity, store_project, version, ext_info, int1, int2, int3, date1, date2, date3,
+        char1, char2, char3
+        from xindaojia.store_info_record
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="storeId != null">
+                and store_id = #{storeId}
+            </if>
+            <if test="storeName != null and storeName != ''">
+                and store_name = #{storeName}
+            </if>
+            <if test="storeType != null">
+                and store_type = #{storeType}
+            </if>
+            <if test="storePrice != null">
+                and store_price = #{storePrice}
+            </if>
+            <if test="storeUnit != null and storeUnit != ''">
+                and store_unit = #{storeUnit}
+            </if>
+            <if test="storeDesc != null and storeDesc != ''">
+                and store_desc = #{storeDesc}
+            </if>
+            <if test="storeDiscount != null and storeDiscount != ''">
+                and store_discount = #{storeDiscount}
+            </if>
+            <if test="storeActivity != null and storeActivity != ''">
+                and store_activity = #{storeActivity}
+            </if>
+            <if test="storeProject != null and storeProject != ''">
+                and store_project = #{storeProject}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                and ext_info = #{extInfo}
+            </if>
+            <if test="int1 != null">
+                and int1 = #{int1}
+            </if>
+            <if test="int2 != null">
+                and int2 = #{int2}
+            </if>
+            <if test="int3 != null">
+                and int3 = #{int3}
+            </if>
+            <if test="date1 != null">
+                and date1 = #{date1}
+            </if>
+            <if test="date2 != null">
+                and date2 = #{date2}
+            </if>
+            <if test="date3 != null">
+                and date3 = #{date3}
+            </if>
+            <if test="char1 != null and char1 != ''">
+                and char1 = #{char1}
+            </if>
+            <if test="char2 != null and char2 != ''">
+                and char2 = #{char2}
+            </if>
+            <if test="char3 != null and char3 != ''">
+                and char3 = #{char3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xindaojia.store_info_record(store_id, store_name, store_type, store_price, store_unit, store_desc, store_discount, store_activity, store_project, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3)
+        values (#{storeId}, #{storeName}, #{storeType}, #{storePrice}, #{storeUnit}, #{storeDesc}, #{storeDiscount}, #{storeActivity}, #{storeProject}, #{version}, #{extInfo}, #{int1}, #{int2}, #{int3}, #{date1}, #{date2}, #{date3}, #{char1}, #{char2}, #{char3})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xindaojia.store_info_record
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId},
+            </if>
+            <if test="storeName != null and storeName != ''">
+                store_name = #{storeName},
+            </if>
+            <if test="storeType != null">
+                store_type = #{storeType},
+            </if>
+            <if test="storePrice != null">
+                store_price = #{storePrice},
+            </if>
+            <if test="storeUnit != null and storeUnit != ''">
+                store_unit = #{storeUnit},
+            </if>
+            <if test="storeDesc != null and storeDesc != ''">
+                store_desc = #{storeDesc},
+            </if>
+            <if test="storeDiscount != null and storeDiscount != ''">
+                store_discount = #{storeDiscount},
+            </if>
+            <if test="storeActivity != null and storeActivity != ''">
+                store_activity = #{storeActivity},
+            </if>
+            <if test="storeProject != null and storeProject != ''">
+                store_project = #{storeProject},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                ext_info = #{extInfo},
+            </if>
+            <if test="int1 != null">
+                int1 = #{int1},
+            </if>
+            <if test="int2 != null">
+                int2 = #{int2},
+            </if>
+            <if test="int3 != null">
+                int3 = #{int3},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3},
+            </if>
+            <if test="char1 != null and char1 != ''">
+                char1 = #{char1},
+            </if>
+            <if test="char2 != null and char2 != ''">
+                char2 = #{char2},
+            </if>
+            <if test="char3 != null and char3 != ''">
+                char3 = #{char3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xindaojia.store_info_record where id = #{id}
+    </delete>
+
+</mapper>

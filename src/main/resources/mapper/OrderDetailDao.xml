@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xindaojia.backend.dao.OrderDetailDao">
+
+    <resultMap type="com.xindaojia.backend.entity.OrderDetail" id="OrderDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="orderDetailId" column="order_detail_id" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
+        <result property="serviceId" column="service_id" jdbcType="OTHER"/>
+        <result property="serviceAmount" column="service_amount" jdbcType="INTEGER"/>
+        <result property="servicePrice" column="service_price" jdbcType="NUMERIC"/>
+        <result property="serviceCnt" column="service_cnt" jdbcType="INTEGER"/>
+        <result property="isPay" column="is_pay" jdbcType="OTHER"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+        <result property="int1" column="int1" jdbcType="INTEGER"/>
+        <result property="int2" column="int2" jdbcType="INTEGER"/>
+        <result property="int3" column="int3" jdbcType="INTEGER"/>
+        <result property="date1" column="date1" jdbcType="TIMESTAMP"/>
+        <result property="date2" column="date2" jdbcType="TIMESTAMP"/>
+        <result property="date3" column="date3" jdbcType="TIMESTAMP"/>
+        <result property="char1" column="char1" jdbcType="VARCHAR"/>
+        <result property="char2" column="char2" jdbcType="VARCHAR"/>
+        <result property="char3" column="char3" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderDetailMap">
+        select
+          id, order_detail_id, order_id, service_id, service_amount, service_price, service_cnt, is_pay, pay_time, status, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.order_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderDetailMap">
+        select
+          id, order_detail_id, order_id, service_id, service_amount, service_price, service_cnt, is_pay, pay_time, status, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3
+        from xindaojia.order_detail
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderDetailMap">
+        select
+        id, order_detail_id, order_id, service_id, service_amount, service_price, service_cnt,
+        is_pay, pay_time, status, version, ext_info, int1, int2, int3, date1, date2, date3, char1,
+        char2, char3
+        from xindaojia.order_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderDetailId != null">
+                and order_detail_id = #{orderDetailId}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="serviceId != null">
+                and service_id = #{serviceId}
+            </if>
+            <if test="serviceAmount != null">
+                and service_amount = #{serviceAmount}
+            </if>
+            <if test="servicePrice != null">
+                and service_price = #{servicePrice}
+            </if>
+            <if test="serviceCnt != null">
+                and service_cnt = #{serviceCnt}
+            </if>
+            <if test="isPay != null">
+                and is_pay = #{isPay}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="version != null">
+                and version = #{version}
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                and ext_info = #{extInfo}
+            </if>
+            <if test="int1 != null">
+                and int1 = #{int1}
+            </if>
+            <if test="int2 != null">
+                and int2 = #{int2}
+            </if>
+            <if test="int3 != null">
+                and int3 = #{int3}
+            </if>
+            <if test="date1 != null">
+                and date1 = #{date1}
+            </if>
+            <if test="date2 != null">
+                and date2 = #{date2}
+            </if>
+            <if test="date3 != null">
+                and date3 = #{date3}
+            </if>
+            <if test="char1 != null and char1 != ''">
+                and char1 = #{char1}
+            </if>
+            <if test="char2 != null and char2 != ''">
+                and char2 = #{char2}
+            </if>
+            <if test="char3 != null and char3 != ''">
+                and char3 = #{char3}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xindaojia.order_detail(order_detail_id, order_id, service_id, service_amount, service_price, service_cnt, is_pay, pay_time, status, version, ext_info, int1, int2, int3, date1, date2, date3, char1, char2, char3)
+        values (#{orderDetailId}, #{orderId}, #{serviceId}, #{serviceAmount}, #{servicePrice}, #{serviceCnt}, #{isPay}, #{payTime}, #{status}, #{version}, #{extInfo}, #{int1}, #{int2}, #{int3}, #{date1}, #{date2}, #{date3}, #{char1}, #{char2}, #{char3})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xindaojia.order_detail
+        <set>
+            <if test="orderDetailId != null">
+                order_detail_id = #{orderDetailId},
+            </if>
+            <if test="orderId != null and orderId != ''">
+                order_id = #{orderId},
+            </if>
+            <if test="serviceId != null">
+                service_id = #{serviceId},
+            </if>
+            <if test="serviceAmount != null">
+                service_amount = #{serviceAmount},
+            </if>
+            <if test="servicePrice != null">
+                service_price = #{servicePrice},
+            </if>
+            <if test="serviceCnt != null">
+                service_cnt = #{serviceCnt},
+            </if>
+            <if test="isPay != null">
+                is_pay = #{isPay},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="version != null">
+                version = #{version},
+            </if>
+            <if test="extInfo != null and extInfo != ''">
+                ext_info = #{extInfo},
+            </if>
+            <if test="int1 != null">
+                int1 = #{int1},
+            </if>
+            <if test="int2 != null">
+                int2 = #{int2},
+            </if>
+            <if test="int3 != null">
+                int3 = #{int3},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3},
+            </if>
+            <if test="char1 != null and char1 != ''">
+                char1 = #{char1},
+            </if>
+            <if test="char2 != null and char2 != ''">
+                char2 = #{char2},
+            </if>
+            <if test="char3 != null and char3 != ''">
+                char3 = #{char3},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xindaojia.order_detail where id = #{id}
+    </delete>
+
+</mapper>
