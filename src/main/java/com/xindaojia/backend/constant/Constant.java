@@ -1,7 +1,6 @@
 package com.xindaojia.backend.constant;
 
 /**
- * Copyright@www.tencent.com.
  *
  * @author:gaiserchen
  * @date:2020/7/23
