@@ -19,7 +19,25 @@ public interface UserInfoRecordService {
      * @return result
      */
     String userRegister(HashMap<Object, Object> registerRequest);
-
+    /**
+     * 用户登录验证接口
+     * @param userName
+     * @param password
+     * @return
+     */
+    UserInfoRecord	login(String userName,String password);
+    /**
+     * update password
+     * @param requestMap
+     * @return
+     */
+    String passwordUpdate(HashMap<Object, Object> requestMap,Long loginUserId);
+    /**
+     * update name
+     * @param requestMap
+     * @return
+     */
+    String nameUpdate(HashMap<Object, Object> requestMap,Long loginUserId);
     /**
      * 通过ID查询单条数据
      *

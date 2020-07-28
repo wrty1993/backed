@@ -3,6 +3,8 @@ package com.xindaojia.backend.service.impl;
 import static com.xindaojia.backend.constant.Constant.INIT;
 import static com.xindaojia.backend.constant.Constant.MEMBER_STATUS_NORMAL;
 import static com.xindaojia.backend.errorcode.ErrorCode.SUCCESS;
+import static com.xindaojia.backend.errorcode.ErrorCode.ERROR;
+import static com.xindaojia.backend.errorcode.ErrorCode.LOGIN_PROFILE_ERROR;
 import static com.xindaojia.backend.errorcode.ErrorCode.UPDATE_DB_FAILED;
 
 import com.google.gson.Gson;
@@ -99,6 +101,16 @@ public class UserInfoRecordServiceImpl implements UserInfoRecordService {
     }
 
     /**
+     * 用户登录校验，通过userName和password查库
+     */
+    @Override
+    public UserInfoRecord login(String userName,String password) {
+    	//密码加密再去数据库匹配查找
+    	String encryptPassword = encryptUtils.encryptStr(password);
+    	UserInfoRecord queryByUserLogin = userInfoRecordDao.queryByUserLogin(userName, encryptPassword);
+    	return queryByUserLogin;
+    }
+    /**
      * 通过ID查询单条数据
      *
      * @param id 主键
@@ -185,4 +197,86 @@ public class UserInfoRecordServiceImpl implements UserInfoRecordService {
         userInfoRecord.setPhoneVerify(INIT);
         userInfoRecord.setPhotoUrl("");
     }
+
+    /**
+     * 密码更新
+     */
+	@Override
+	public String passwordUpdate(HashMap<Object, Object> requestMap,Long loginUserId) {
+		JsonObject result = new JsonObject();
+		if (StringUtils.isEmpty(requestMap.get("originalPassword")) || StringUtils.isEmpty(requestMap.get("newPassword"))) {
+			 result.addProperty("code", ERROR.code());
+             result.addProperty("msg", "密码为空");
+             return new Gson().toJson(result);
+        }
+		//通过loginUserId 来判断是否有此用户和比较原密码
+		UserInfoRecord userInfo = queryById(loginUserId);
+		//判断是否有此用户
+		if(userInfo==null) {
+			result.addProperty("code",LOGIN_PROFILE_ERROR.code());
+            result.addProperty("msg",LOGIN_PROFILE_ERROR.msg()); 
+            return result.toString();
+		}else {
+			String originPassword = encryptUtils.encryptStr(requestMap.get("originalPassword").toString());
+			String newPassword = encryptUtils.encryptStr(requestMap.get("newPassword").toString());
+			//originPassword密码正确才能修改密码
+			if(originPassword.endsWith(userInfo.getUserPassword())) {
+				userInfo.setUserPassword(newPassword);
+				try {
+		            if (userInfoRecordDao.update(userInfo) == 1) {
+		                result.addProperty("code", SUCCESS.code());
+		                result.addProperty("msg", SUCCESS.msg());
+		            } else {
+		                result.addProperty("code", UPDATE_DB_FAILED.code());
+		                result.addProperty("msg", UPDATE_DB_FAILED.msg());
+		            }
+		        } catch (Exception exception) {
+		            logger.error("update user info exception!uid:[{}],exception:[{}]",
+		            		loginUserId, exception.getMessage());
+		            result.addProperty("code", UPDATE_DB_FAILED.code());
+		            result.addProperty("msg", UPDATE_DB_FAILED.msg());
+		        }
+			}
+		}
+		return  new Gson().toJson(result);
+	}
+	
+	/**
+	 *用户名或昵称更新 
+	 */
+	@Override
+	public String nameUpdate(HashMap<Object, Object> requestMap,Long loginUserId) {
+		JsonObject result = new JsonObject();
+		if (StringUtils.isEmpty(requestMap.get("userName")) || StringUtils.isEmpty(requestMap.get("nick"))) {
+			 result.addProperty("code", ERROR.code());
+             result.addProperty("msg", "参数不能为空");
+             return new Gson().toJson(result);
+        }
+		//通过loginUserId 来判断是否有此用户
+		UserInfoRecord userInfo = queryById(loginUserId);
+		if(userInfo==null) {
+			result.addProperty("code",LOGIN_PROFILE_ERROR.code());
+            result.addProperty("msg",LOGIN_PROFILE_ERROR.msg()); 
+            return result.toString();
+		}else {
+			//设置新名称并修改
+			userInfo.setUserName(requestMap.get("userName").toString());
+			userInfo.setNick(requestMap.get("nick").toString());
+			try {
+	            if (userInfoRecordDao.update(userInfo) == 1) {
+	                result.addProperty("code", SUCCESS.code());
+	                result.addProperty("msg", SUCCESS.msg());
+	            } else {
+	                result.addProperty("code", UPDATE_DB_FAILED.code());
+	                result.addProperty("msg", UPDATE_DB_FAILED.msg());
+	            }
+	        } catch (Exception exception) {
+	            logger.error("update user info exception!uid:[{}],exception:[{}]",
+	            		loginUserId, exception.getMessage());
+	            result.addProperty("code", UPDATE_DB_FAILED.code());
+	            result.addProperty("msg", UPDATE_DB_FAILED.msg());
+	        }
+		}
+		return new Gson().toJson(result);
+	}
 }
