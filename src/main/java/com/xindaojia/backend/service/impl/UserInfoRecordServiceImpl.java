@@ -279,4 +279,53 @@ public class UserInfoRecordServiceImpl implements UserInfoRecordService {
 		}
 		return new Gson().toJson(result);
 	}
+
+	@Override
+	public String updateInfo(HashMap<Object, Object> requestMap, Long loginUserId) {
+		// TODO Auto-generated method stub
+		JsonObject result = new JsonObject();
+		//通过loginUserId 来判断是否有此用户
+		UserInfoRecord userInfo = queryById(loginUserId);
+		if(userInfo==null) {
+			result.addProperty("code",LOGIN_PROFILE_ERROR.code());
+            result.addProperty("msg",LOGIN_PROFILE_ERROR.msg()); 
+            return result.toString();
+		}else {
+			try {
+	            if (userInfoRecordDao.update(userInfo) == 1) {
+	                result.addProperty("code", SUCCESS.code());
+	                result.addProperty("msg", SUCCESS.msg());
+	            } else {
+	                result.addProperty("code", UPDATE_DB_FAILED.code());
+	                result.addProperty("msg", UPDATE_DB_FAILED.msg());
+	            }
+	        } catch (Exception exception) {
+	            logger.error("update user info exception!uid:[{}],exception:[{}]",
+	            		loginUserId, exception.getMessage());
+	            result.addProperty("code", UPDATE_DB_FAILED.code());
+	            result.addProperty("msg", UPDATE_DB_FAILED.msg());
+	        }
+		}
+		return new Gson().toJson(result);
+	}
+
+	@Override
+	public String getUserInfo(Long loginUserId) {
+		JsonObject result = new JsonObject();
+		//userId为主键，直接通过查询主键id查询
+	   	 UserInfoRecord userInfo = queryById(loginUserId);
+	   	if(userInfo==null) {
+			 result.addProperty("code",LOGIN_PROFILE_ERROR.code());
+	        result.addProperty("msg",LOGIN_PROFILE_ERROR.msg()); 
+	        return result.toString();
+		 }else {
+//			 result.addProperty("data", userInfo);
+			 result.addProperty("code",SUCCESS.code());
+	        result.addProperty("msg",SUCCESS.msg());
+	       
+	        return result.toString();
+		 }
+		
+	}
+	
 }

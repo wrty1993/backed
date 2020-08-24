@@ -39,6 +39,19 @@ public interface UserInfoRecordService {
      */
     String nameUpdate(HashMap<Object, Object> requestMap,Long loginUserId);
     /**
+     * 修改用户信息接口
+     * @param requestMap
+     * @param loginUserId
+     * @return
+     */
+    String updateInfo(HashMap<Object, Object> requestMap,Long loginUserId);
+    /**
+     * 获取用户信息
+     * @param loginUserId
+     * @return
+     */
+    String getUserInfo(Long loginUserId);
+    /**
      * 通过ID查询单条数据
      *
      * @param id 主键

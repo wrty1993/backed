@@ -120,7 +120,7 @@ public class UserInfoController {
     	 }
     }
     
-    @PostMapping("/profile/password")
+    @PostMapping("/update/password")
     @ResponseBody
     public String passwordUpdate(HttpServletRequest request,@RequestBody HashMap<Object, Object> requestMap) {
     	JsonObject result = new JsonObject();  
@@ -137,9 +137,9 @@ public class UserInfoController {
          return userInfoRecordService.passwordUpdate(requestMap,loginUserId);
     }
     
-    @PostMapping("/profile/name")
+    @PostMapping("/update/name")
     @ResponseBody
-    public String passwordName(HttpServletRequest request,@RequestBody HashMap<Object, Object> requestMap) {
+    public String updateName(HttpServletRequest request,@RequestBody HashMap<Object, Object> requestMap) {
     	JsonObject result = new JsonObject();  
     	if (requestMap == null) {
             result.addProperty("code", PARAM_NOT_SET.code());
@@ -148,6 +148,24 @@ public class UserInfoController {
         }
     	Long loginUserId =Long.valueOf(request.getSession().getAttribute("loginUserId").toString());
     	return userInfoRecordService.nameUpdate(requestMap,loginUserId);
+    }
+    /**
+     * 修改用户信息（刚哥看下是否还需要上面的updateName接口 ，修改信息 直接用这个修改用户信息接口？）
+     * @param request
+     * @param requestMap
+     * @return
+     */
+    @PostMapping("/update/info")
+    @ResponseBody
+    public String updateInfo(HttpServletRequest request,@RequestBody HashMap<Object, Object> requestMap) {
+    	JsonObject result = new JsonObject();  
+    	if (requestMap == null) {
+            result.addProperty("code", PARAM_NOT_SET.code());
+            result.addProperty("msg", PARAM_NOT_SET.msg());
+            return new Gson().toJson(result);
+        }
+    	Long loginUserId =Long.valueOf(request.getSession().getAttribute("loginUserId").toString());
+    	return userInfoRecordService.updateInfo(requestMap,loginUserId);
     }
     
     @GetMapping("/logout")
