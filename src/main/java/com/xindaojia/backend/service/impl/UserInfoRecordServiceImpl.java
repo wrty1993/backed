@@ -319,7 +319,7 @@ public class UserInfoRecordServiceImpl implements UserInfoRecordService {
 	        result.addProperty("msg",LOGIN_PROFILE_ERROR.msg()); 
 	        return result.toString();
 		 }else {
-//			 result.addProperty("data", userInfo);
+			 result.addProperty("data", userInfo.toString());
 			 result.addProperty("code",SUCCESS.code());
 	        result.addProperty("msg",SUCCESS.msg());
 	       
