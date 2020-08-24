@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.xindaojia.backend.entity.UserInfoRecord;
 import com.xindaojia.backend.service.UserInfoRecordService;
+
+
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -167,6 +169,20 @@ public class UserInfoController {
     	Long loginUserId =Long.valueOf(request.getSession().getAttribute("loginUserId").toString());
     	return userInfoRecordService.updateInfo(requestMap,loginUserId);
     }
+    /**
+     * 获取用户信息接口，和上面的profile校验接口是同类型的
+     * @param request
+     * @return
+     */
+    @GetMapping("/user/info")
+    @ResponseBody
+    public String getUserInfo(HttpServletRequest request) {
+    	Long loginUserId =Long.valueOf(request.getSession().getAttribute("loginUserId").toString());
+   	 
+    	return userInfoRecordService.getUserInfo(loginUserId);
+    
+    }
+    
     
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
