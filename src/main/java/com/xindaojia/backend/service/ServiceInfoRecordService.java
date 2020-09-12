@@ -1,6 +1,8 @@
 package com.xindaojia.backend.service;
 
 import com.xindaojia.backend.entity.ServiceInfoRecord;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,7 +20,13 @@ public interface ServiceInfoRecordService {
      * @return 实例对象
      */
     ServiceInfoRecord queryById(Long id);
-
+    
+    /**
+     * 首页不同类型展示不同服务
+     * @param registerRequest
+     * @return
+     */
+    String homePageShow(HashMap<Object, Object> requestData);
     /**
      * 查询多条数据
      *

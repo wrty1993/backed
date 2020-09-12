@@ -3,6 +3,10 @@ package com.xindaojia.backend.service.impl;
 import com.xindaojia.backend.dao.ServiceInfoRecordDao;
 import com.xindaojia.backend.entity.ServiceInfoRecord;
 import com.xindaojia.backend.service.ServiceInfoRecordService;
+import com.xindaojia.backend.utils.RespParams;
+import com.xindaojia.backend.utils.ReqParams;
+
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -76,4 +80,31 @@ public class ServiceInfoRecordServiceImpl implements ServiceInfoRecordService {
     public boolean deleteById(Long id) {
         return this.serviceInfoRecordDao.deleteById(id) > 0;
     }
+    
+    /**
+     * 首页展示，不同分类图标查询不同服务
+     */
+	@Override
+	public String homePageShow(HashMap<Object, Object> requestData) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+	
+	/**
+	 * 获取分类数据
+	 * @return
+	 */
+	public RespParams getClissifyDataPage(ReqParams reqParams) {
+		RespParams respParams =new RespParams();
+		int page=Integer.parseInt(reqParams.get("page").toString());
+		int size=Integer.parseInt(reqParams.get("size").toString());
+		List<ServiceInfoRecord> serviceList = serviceInfoRecordDao.queryAllByLimit((page-1)*size, size);
+		respParams.setList(serviceList);
+		respParams.setPage(page);
+		respParams.setSize(serviceList.size());
+		return respParams;
+	}
+	
+	
 }

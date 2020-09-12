@@ -21,6 +21,13 @@ public interface UserInfoRecordDao {
     UserInfoRecord queryById(Long id);
 
     /**
+     * 通过用户name和密码判断数据库中是否有此用户
+     * @param userName
+     * @param password
+     * @return
+     */
+    UserInfoRecord queryByUserLogin(String userName,String password);
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置
